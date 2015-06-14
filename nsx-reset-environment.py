@@ -35,7 +35,7 @@ parser.add_argument("--user", help="OPTIONAL - NSX Manager username (default: %(
 parser.set_defaults(_user="admin")
 
 # Set arguments to delete different objects
-parser.add_argument('--deletedefaults', help=argparse.SUPPRESS, dest='_deletedefaults', action='store_true')
+parser.add_argument('--force', help=argparse.SUPPRESS, dest='_force', action='store_true')
 parser.add_argument('--ipsets', help="Delete all IP Sets", dest='_delIPSets', action='store_true')
 parser.add_argument('--services', help="Delete all services", dest='_delServices', action='store_true')
 parser.add_argument('--secgroups', help="Delete all security groups", dest='_delSecGroups', action='store_true')
@@ -56,7 +56,7 @@ except NameError:
 _user = args._user
 _nsxmgr = args._nsxmgr
 
-_deletedefaults = args._deletedefaults
+_force = args._force
 _delIPSets = args._delIPSets
 _delServices = args._delServices
 _delSecGroups = args._delSecGroups
@@ -162,7 +162,7 @@ def f_delete_service_all():
 
         for service in _get_ip_service_root.findall('application'):
 
-            if _deletedefaults == True:
+            if _force == True:
 
                 for extendedAttributes in service.findall('extendedAttributes'):
 
@@ -251,7 +251,7 @@ def f_delete_service_group_all():
 
         for srvgroupid in _get_service_group_root.findall('applicationGroup'):
 
-            if _deletedefaults == True:
+            if _force == True:
                 print('INFO: Deleting Service Group: "%s" (%s)' % (srvgroupid.find('name').text,srvgroupid.find('objectId').text))
                 _del_service_group_url = 'https://%s/api/2.0/services/applicationgroup/%s?force=true' % (_nsxmgr, srvgroupid.find('objectId').text)
                 _del_sec_group_reponse = requests.delete((_del_service_group_url), headers=_nsx_api_headers, auth=(_user, _password), verify=False)
