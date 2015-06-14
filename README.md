@@ -48,7 +48,7 @@ INFO: Deleting IP Set: "Net_10.29.0.0" (ipset-16)
 INFO: Deleting IP Set: "Net_10.29.128.0" (ipset-17)
 ```
 ###Deleting Services
-WARNING: This will delete ALL NSX-v services Including ALL pre-configured services included in a default installation.
+This will delete ALL NSX-v services excluding all pre-configured services included in a default installation.
 ```
 python nsx-reset-environment.py --nsxmgr 10.29.4.211 --services
 NSX Manager password:
@@ -72,7 +72,7 @@ INFO: Deleting Security Group: "SG-S.DNS Servers" (securitygroup-12)
 INFO: Skipping Security Group "Activity Monitoring Data Collection" (securitygroup-1)
 ```
 ###Deleting Service Groups
-WARNING: This will delete ALL NSX-v service groups Including ALL pre-configured services included in a default installation.
+This will delete all NSX-v service groups excluding all pre-configured services included in a default installation.
 ```
 python nsx-reset-environment.py --nsxmgr 10.29.4.211 --servicegroups
 NSX Manager password:
